@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'main/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div id="body">
+        <div id="left">
+            <nav class="segmented">
+              <input type="radio" name="seg-1" value="Add Beacon" id="seg-beacon">
+              <label for="seg-beacon">Add Beacon</label>
+                <br/>
+              <input type="radio" name="seg-1" value="Add Origin" id="seg-origin">
+              <label for="seg-origin">Add Origin</label>
+            </nav>
+        </div>
+        <div id="right">
+            <div id="dialog-form" title="Create a new beacon" style="display: none">
+                <form method="POST" id="beacon_form">
+                    {% csrf_token %}
+                    <label for="beacon_id">Beacon ID: </label>
+                    <input id="beacon_id" type="text" name="beacon_id" class="text ui-widget-content ui-corner-all">
+                    <br/>
+                    <label for="beacon_name">Beacon Name: </label>
+                    <input id="beacon_name" type="text" name="beacon_name" class="text ui-widget-content ui-corner-all">
+                    <br/>
+                    <label for="x_position">X position</label>
+                    <input id="x_position" type="text" class="text ui-widget-content ui-corner-all">
+                    <br/>
+                    <label for="y_position">Y position</label>
+                    <input id="y_position" type="text" class="text ui-widget-content ui-corner-all">
+                    <input id="addbeacon" type="submit" value="Add new beacon" tabindex="-1" style="position:absolute; top:-1000px">
+                </form>
+            </div>
+            <div id="markers">
+                <img src="{% static 'main/marker-icon.png' %}" alt="marker" class="marker" id="marker" style="display: none; position: absolute;"  />
+            <!--</div>-->
+            <!--<div id="map_">-->
+                <img id="map" src="{% static 'main/testfloorplan.png' %}" alt="floorplan" height="80%" width="80%"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'main/app.js' %}"></script>
+{% endblock %}

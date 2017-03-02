@@ -1,0 +1,36 @@
+body {
+    margin: 10;
+}
+
+#left {
+    width: 10%;
+    height: 100%;
+    position: fixed;
+}
+#right {
+    width: 90%;
+    height: auto;
+    position: absolute;
+    right: 0;
+}
+
+/*
+.segmented {
+  padding: 12px;
+}
+*/
+.segmented input[type=radio] {
+   display: none;
+}
+.segmented label {
+  border: outset 1px silver;
+  /*padding: 2px 16px;*/
+  margin-right: -5px;
+  background: #ddd;
+    cursor: pointer;
+}
+
+.segmented input:checked + label {
+  border: inset 1px silver;
+  background: #aaa;
+}
