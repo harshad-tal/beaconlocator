@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'main/style.css' %}" />
+<link rel="stylesheet" href="{% static 'style.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -43,15 +43,15 @@
                 </form>
             </div>
             <div id="markers">
-                <img src="{% static 'main/marker-icon.png' %}" alt="marker" class="marker" id="marker" style="display: none; position: absolute;"  />
+                <img src="{% static 'marker-icon.png' %}" alt="marker" class="marker" id="marker" style="display: none; position: absolute;"  />
             <!--</div>-->
             <!--<div id="map_">-->
-                <img id="map" src="{% static 'main/testfloorplan.png' %}" alt="floorplan" height="80%" width="80%"/>
+                <img id="map" src="{% static 'testfloorplan.png' %}" alt="floorplan" height="80%" width="80%"/>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'main/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app.js' %}"></script>
 {% endblock %}

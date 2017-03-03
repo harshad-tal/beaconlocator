@@ -1,0 +1,8 @@
+{
+  "name": "Beacon locator: Python",
+  "description": "Beacon locator",
+  "image": "heroku/python",
+  "repository": "https://git.heroku.com/desolate-wave-90952.git",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}
