@@ -78,24 +78,31 @@ function delete_local_storage(key){
     localStorage.removeItem(key);
 }
 
-function bulk_create_beacons(){
+$('#bulk_save').submit(function (e){
+    e.preventDefault();
     beacons = read_local_storage('beacons');
+    var csrftoken = getCookie('csrftoken');
     $.ajax({
         url: "/app/bulk_create_beacons/",
         type: "POST",
-        data: {
-            "csrfmiddlewaretoken": csrftoken,
-            "beacons": beacons
+        headers: {
+        'Content-Type':'application/json',
+        'X-CSRFToken': csrftoken
         },
+        dataType: "json",
+        data: JSON.stringify({
+            "beacons": beacons
+        }),
         success: function(resp) {
             console.log(resp);
+            $("#result").text(resp.status);
             delete_local_storage('beacons');
         },
         error: function(xhr, errmsg, err) {
             console.log(xhr.status + ": " + xhr.responseText);
         }
     });
-}
+});
 
 function load_ls_beacons(){
     beacons = read_local_storage('beacons');

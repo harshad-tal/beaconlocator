@@ -15,6 +15,14 @@
               <input type="radio" name="seg-1" value="Add Origin" id="seg-origin">
               <label for="seg-origin">Add Origin</label>
             </nav>
+            <br/>
+            <form method="POST" id="bulk_save">
+                {% csrf_token %}
+                <input type="submit" value="submit" class="btn btn-link submit" id="bulksavebtn">
+            </form>
+            <div id="result">
+
+            </div>
         </div>
         <div id="right">
             <div id="dialog-form" title="Create a new beacon" style="display: none">
