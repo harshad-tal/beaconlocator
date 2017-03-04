@@ -4,6 +4,8 @@ var map = $("#map");
 
 $(document).ready(function() {
     var dialog;
+    load_db_beacons();
+    load_ls_beacons();
 
     dialog = $("#dialog-form").dialog({
         autoOpen: false,
@@ -31,8 +33,8 @@ $(document).ready(function() {
         x = e.pageX - ( $(window).width() / 10 ) - 24;
         y = e.pageY - 48
         $('.marker').css('left', x).css('top', y).show();
-        $("#x_position").val(e.pageX);
-        $("#y_position").val(e.pageY);
+        $("#x_position").val(x);
+        $("#y_position").val(y);
         dialog.dialog("open");
     });
 });
@@ -106,11 +108,37 @@ $('#bulk_save').submit(function (e){
 
 function load_ls_beacons(){
     beacons = read_local_storage('beacons');
-    var markers = $("#markers");
+    load_markers(beacons);
+}
 
-//    $.each(beacons, )
-    new_marker = $(".marker").clone();
-    $("#markers").append(new_marker);
+function load_markers(beacons){
+    var markers = $("#markers");
+    var marker = $(".marker");
+    if(beacons){
+        for(i=0; i<beacons.length; ++i){
+            new_marker = marker.clone();
+            new_marker.attr("class", "frozen_marker");
+            new_marker.attr(
+            "style", "position: absolute; left: "+beacons[i].x_position+"px; top:" + beacons[i].y_position +"px"
+            );
+            markers.append(new_marker);
+        }
+    }
+}
+
+function load_db_beacons(){
+    $.ajax({
+        url: "/app/get_beacons/",
+        type: "GET",
+        dataType: "json",
+        success: function(resp) {
+            console.log(resp);
+            load_markers(resp);
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
 }
 
 function add_beacon_marker() {

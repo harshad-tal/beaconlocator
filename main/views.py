@@ -1,12 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from main.models import Beacon
-from django.forms.models import model_to_dict
-from django.views.decorators.csrf import csrf_exempt
 import json
+
 
 def home(request):
     return render(request, 'index.html')
+
+
+def get_beacons(request):
+    if request.method == 'GET' and request.is_ajax():
+        beacons = Beacon.objects.all()
+        return HttpResponse(
+            json.dumps(list(beacons.values())),
+            content_type='application/json'
+        )
 
 
 def add_new_beacon(request):
