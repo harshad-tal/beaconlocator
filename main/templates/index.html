@@ -8,13 +8,15 @@
 {% block content %}
     <div id="body">
         <div id="left">
-            <nav class="segmented">
-              <input type="radio" name="seg-1" value="Add Beacon" id="seg-beacon">
-              <label for="seg-beacon">Add Beacon</label>
-                <br/>
-              <input type="radio" name="seg-1" value="Add Origin" id="seg-origin">
-              <label for="seg-origin">Add Origin</label>
-            </nav>
+            <!--<nav class="segmented">-->
+              <!--<input type="radio" name="seg-1" value="Add Beacon" id="seg-beacon">-->
+              <!--<label for="seg-beacon">Add Beacon</label>-->
+                <!--<br/>-->
+              <!--<input type="radio" name="seg-1" value="Add Origin" id="seg-origin">-->
+              <!--<label for="seg-origin">Add Origin</label>-->
+            <!--</nav>-->
+            <br/>
+            <input class="img_input" type="file" name="fpimg" id="fpimg" />
             <br/>
             <form method="POST" id="bulk_save">
                 {% csrf_token %}
@@ -43,10 +45,13 @@
                 </form>
             </div>
             <div id="markers">
-                <img src="{% static 'marker-icon.png' %}" alt="marker" class="marker" id="marker" style="display: none; position: absolute;"  />
-            <!--</div>-->
-            <!--<div id="map_">-->
-                <img id="map" src="{% static 'testfloorplan.png' %}" alt="floorplan" height="80%" width="80%"/>
+                <img src="{% static 'marker-icon.png' %}" alt="marker" class="marker" id="marker" style="cursor:pointer;display: none; position: absolute;"  />
+
+                <!--<img id="map" src="#" alt="floorplan" height="80%" width="80%"/>-->
+
+                <div class="imagearea">
+
+                </div>
             </div>
         </div>
     </div>

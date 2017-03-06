@@ -34,3 +34,7 @@ body {
   border: inset 1px silver;
   background: #aaa;
 }
+
+.frozen_marker {
+    cursor: pointer;
+}
