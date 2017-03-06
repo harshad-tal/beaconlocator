@@ -46,8 +46,8 @@ function addBeacon() {
     add_to_local_storage({
         "beacon_id": $("#beacon_id").val(),
         "beacon_name": $("#beacon_name").val(),
-        "x_position": $("#x_position").val(),
-        "y_position": $("#y_position").val()
+        "x_position": parseInt($("#x_position").val()),
+        "y_position": parseInt($("#y_position").val())
     });
 }
 
