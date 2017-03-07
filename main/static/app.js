@@ -27,6 +27,8 @@ $(document).ready(function() {
                 "height": selection.height,
                 "width": selection.width
              });
+             ias.remove();
+             ias.update();
              $("#select").css("color", "#337ab7");
         }
         });
