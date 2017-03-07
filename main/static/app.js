@@ -2,6 +2,7 @@ var frozen_markers = [];
 var current_marker;
 var map = $("#map");
 var dialog;
+var edit_dialog;
 
 $(document).ready(function() {
     upload_image_to_ls();
@@ -19,13 +20,17 @@ $(document).ready(function() {
                 .css('left', selection.x1)
                 .css('width', selection.width)
                 .show();
+
+            img = document.getElementById('map');
+            width_ratio = img.naturalWidth / img.clientWidth;
+            height_ratio = img.naturalHeight / img.clientHeight;
             write_local_storage(
             "region",
              {
-                "top": selection.y1,
-                "left": selection.x1,
-                "height": selection.height,
-                "width": selection.width
+                "top": selection.y1 * height_ratio,
+                "left": selection.x1 * width_ratio,
+                "height": selection.height * height_ratio,
+                "width": selection.width * width_ratio
              });
              ias.remove();
              ias.update();
@@ -139,13 +144,17 @@ function load_ls_beacons(){
 }
 
 function load_ls_region(){
+    img = document.getElementById('map');
+    width_ratio = img.naturalWidth / img.clientWidth;
+    height_ratio = img.naturalHeight / img.clientHeight;
+
     region = read_local_storage("region");
     if(region){
         $(".box")
-            .css('top', region.top)
-            .css('height', region.height)
-            .css('left', region.left)
-            .css('width', region.width)
+            .css('top', region.top / height_ratio)
+            .css('height', region.height / height_ratio)
+            .css('left', region.left / width_ratio)
+            .css('width', region.width / width_ratio)
             .show();
     }
 }
@@ -164,6 +173,7 @@ function load_markers(beacons){
             new_marker.attr(
             "style", "cursor:pointer;position: absolute; left: "+beacons[i].x_position/width_ratio+"px; top:" + beacons[i].y_position/height_ratio +"px"
             );
+            new_marker.click(marker_click_handler);
             markers.append(new_marker);
         }
     }
@@ -184,6 +194,36 @@ function load_db_beacons(){
     });
 }
 
+
+function marker_click_handler(){
+    edit_dialog = $("#edit-dialog-form").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 350,
+        modal: true,
+        buttons: {
+            "Edit": function() {
+                edit_dialog.dialog("close");
+            },
+            "Remove": function(){
+                edit_dialog.dialog("close");
+            },
+            Cancel: function() {
+                edit_dialog.dialog("close");
+            }
+        },
+        close: function() {},
+        position: {
+            my: "left",
+            of: $('.box')
+        }
+    });
+
+    if(edit_dialog){
+        edit_dialog.dialog("open");
+    }
+}
+
 function add_beacon_marker(beacon_id) {
     $("#beacon_id").val('');
     $("#beacon_name").val('');
@@ -192,7 +232,8 @@ function add_beacon_marker(beacon_id) {
     new_marker = $(".marker").clone();
     $('.marker').attr("id", "marker-"+beacon_id);
     $('.marker').attr("class", "frozen_marker");
-    $('.marker').attr("src", "/static/main/frozen-marker-icon.png")
+    $('.marker').attr("src", "/static/main/frozen-marker-icon.png");
+    $('.marker').click(marker_click_handler);
     $("#markers").append(new_marker);
 }
 
