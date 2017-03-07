@@ -138,12 +138,14 @@ function load_ls_beacons(){
 
 function load_ls_region(){
     region = read_local_storage("region");
-    $(".box")
-        .css('top', region.top)
-        .css('height', region.height)
-        .css('left', region.left)
-        .css('width', region.width)
-        .show();
+    if(region){
+        $(".box")
+            .css('top', region.top)
+            .css('height', region.height)
+            .css('left', region.left)
+            .css('width', region.width)
+            .show();
+    }
 }
 
 function load_markers(beacons){
