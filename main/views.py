@@ -1,11 +1,19 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from main.models import Beacon
+from django.views.decorators.csrf import csrf_exempt
 import json
 
-
+@csrf_exempt
 def home(request):
+    print(request.POST)
+    print(request.body)
+    # print(vars(request))
     return render(request, 'index.html')
+
+@csrf_exempt
+def test(request):
+    return render(request, 'test.html')
 
 
 def get_beacons(request):

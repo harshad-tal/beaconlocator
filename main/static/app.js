@@ -5,6 +5,33 @@ var dialog;
 
 $(document).ready(function() {
     upload_image_to_ls();
+    load_ls_region();
+
+    $("#select").click(function(){
+        $(this).css("color", "red");
+        var ias = $('#map').imgAreaSelect({
+        instance: true,
+        autoHide: true,
+        onSelectEnd: function(img, selection){
+            $(".box")
+                .css('top', selection.y1)
+                .css('height', selection.height)
+                .css('left', selection.x1)
+                .css('width', selection.width)
+                .show();
+            write_local_storage(
+            "region",
+             {
+                "top": selection.y1,
+                "left": selection.x1,
+                "height": selection.height,
+                "width": selection.width
+             });
+             $("#select").css("color", "#337ab7");
+        }
+        });
+    });
+
     load_db_beacons();
     load_ls_beacons();
 
@@ -30,7 +57,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#map').click(fp_click_handler);
+    $('.box').click(fp_click_handler);
 });
 
 
@@ -107,6 +134,16 @@ $('#bulk_save').submit(function (e){
 function load_ls_beacons(){
     beacons = read_local_storage('beacons');
     load_markers(beacons);
+}
+
+function load_ls_region(){
+    region = read_local_storage("region");
+    $(".box")
+        .css('top', region.top)
+        .css('height', region.height)
+        .css('left', region.left)
+        .css('width', region.width)
+        .show();
 }
 
 function load_markers(beacons){
@@ -188,6 +225,7 @@ function upload_image_to_ls(){
     img.width = $(window).width() * 0.8;
 
     $('.imagearea').html(img);
+    $('.imagearea').append('<div class="box"></div>')
 
     $("body").on("change",".img_input",function(){
         var fileInput = $(this)[0];

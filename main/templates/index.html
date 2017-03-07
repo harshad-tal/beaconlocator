@@ -3,6 +3,14 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'imgareaselect-default.css' %}" />
+<style>
+.box {
+    position:absolute;
+    border:2px dotted blue;
+    background-color:transparent
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -16,12 +24,13 @@
               <!--<label for="seg-origin">Add Origin</label>-->
             <!--</nav>-->
             <br/>
-            <input class="img_input" type="file" name="fpimg" id="fpimg" />
+            <input class="img_input" type="file" name="fpimg" id="fpimg" title=" "/>
             <br/>
             <form method="POST" id="bulk_save">
                 {% csrf_token %}
-                <input type="submit" value="submit" class="btn btn-link submit" id="bulksavebtn">
+                <input type="submit" value="Push to db" class="btn btn-link submit" id="bulksavebtn">
             </form>
+            <a id="select" class="btn btn-link submit">Mark region</a>
             <div id="result">
 
             </div>
